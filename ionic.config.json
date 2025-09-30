@@ -1,0 +1,8 @@
+{
+  "name": "budget management",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "67b4bcb5"
+}
