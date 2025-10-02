@@ -1,1 +1,46 @@
-<p>register works!</p>,
+<ion-content class="register-content" fullscreen>
+    <div class="register-wrapper">
+        <div class="register-container">
+            <h1 class="app-title">{{title()}}</h1>
+
+            <form (ngSubmit)="onSubmit()" [formGroup]="registerForm" class="register-form">
+                <ion-input type="email" label="Correo electrónico" label-placement="floating" formControlName="email"
+                    [clearInput]="true"></ion-input>
+
+                <ion-input type="password" label="Contraseña" label-placement="floating" formControlName="password">
+                    <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                </ion-input>
+                <ion-input type="password" label="Confirmar Contraseña" label-placement="floating" formControlName="confirmPassword">
+                    <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+                </ion-input>
+
+                <ion-button expand="block" type="submit" [disabled]="!isValidForm()" class="submit-button">
+                    Registrarse
+                </ion-button>
+            </form>
+
+            @if(showValidations()){
+                <ion-list class="validations">
+                    @for (validation of iteratorValidations(); track $index) {
+                    <ion-item lines="none">
+                        <ion-icon slot="start" [name]="validation.icon" [color]="validation.color"></ion-icon>
+                        <ion-label [color]="validation.color">
+                            {{ validation.message }}
+                        </ion-label>
+                    </ion-item>
+                    }
+                </ion-list>
+            }
+
+            <div class="extra-buttons">
+                <ion-button expand="block" fill="outline" color="secondary" (click)="goToLoginPage()">
+                    Ya tengo una cuenta
+                </ion-button>
+            </div>
+        </div>
+    </div>
+
+    <ion-toast [isOpen]="!!errorMessage()" [message]="errorMessage()" [duration]="durationToast()"
+        color="danger">
+    </ion-toast>
+</ion-content>
