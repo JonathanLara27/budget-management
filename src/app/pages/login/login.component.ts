@@ -12,9 +12,12 @@ import {
   IonButtons,
   IonLabel,
   IonToggle,
-  IonContent } from '@ionic/angular/standalone';
+  IonContent,
+  IonIcon,
+} from '@ionic/angular/standalone';
 import { LoginService } from './login.service';
 import { DarkModeService } from 'src/app/common/services/darkMode.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -31,7 +34,8 @@ import { DarkModeService } from 'src/app/common/services/darkMode.service';
     IonButtons,
     IonLabel,
     IonToggle,
-    IonContent
+    IonContent,
+    IonIcon
   ],
   providers: [LoginService],
   templateUrl: './login.component.html',
@@ -44,6 +48,8 @@ export default class LoginComponent {
   private readonly loginService = inject(LoginService);
 
   private readonly darkModeService = inject(DarkModeService);
+
+  private readonly router = inject(Router);
 
   public darkMode = this.darkModeService.darkMode;
 
@@ -63,6 +69,16 @@ export default class LoginComponent {
 
   async onLoginWithGoogle() {
     await this.loginService.loginWithGoogle();
+  }
+
+  onRegister() {
+    // Aquí rediriges a la página de registro
+    this.router.navigate(['/register']);
+  }
+
+  onForgotPassword() {
+    // Aquí podrías abrir un modal o redirigir a reset password
+    this.router.navigate(['/forgot-password']);
   }
 
 }
