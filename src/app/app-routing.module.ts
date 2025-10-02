@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./login/login.component')
+    loadComponent: () => import('./pages/login/login.component')
   },
   {
     path: '**',

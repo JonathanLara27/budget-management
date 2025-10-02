@@ -1,0 +1,36 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Mi App
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-item lines="none">
+        <ion-label>🌙</ion-label>
+        <ion-toggle [checked]="darkMode" (ionChange)="toggleDarkMode($event)">
+        </ion-toggle>
+      </ion-item>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+    <div class="email">
+      <ion-input type="email" label="Email" label-placement="floating" formControlName="email" [clearInput]="true"></ion-input>
+    </div>
+    <div class="password">
+      <ion-input type="password" label="Password" label-placement="floating" formControlName="password">
+          <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </div>
+    <div class="submit">
+      <ion-button type="submit" [disabled]="loginForm.invalid">Login</ion-button>
+    </div>
+  </form>
+<ion-toast [isOpen]="!!messageLoginError()" [message]="messageLoginError()" [duration]="durationToast()" color="danger">
+</ion-toast>
+
+
+</ion-content>
+
+
