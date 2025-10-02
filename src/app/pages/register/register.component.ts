@@ -5,13 +5,8 @@ import {
   IonInputPasswordToggle,
   IonButton,
   IonToast,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
   IonItem,
-  IonButtons,
   IonLabel,
-  IonToggle,
   IonContent,
   IonList,
   IonIcon,
@@ -28,24 +23,19 @@ import { CommonModule } from '@angular/common';
     IonInputPasswordToggle,
     IonButton,
     IonToast,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonItem,
-    IonButtons,
     IonLabel,
-    IonToggle,
     IonContent,
     IonList,
     IonIcon
   ],
   providers: [RegisterService],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+  styleUrls: ['./register.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export default class RegisterComponent { 
+export class RegisterComponent { 
 
   private readonly registerService = inject(RegisterService);
 

@@ -5,13 +5,6 @@ import {
   IonInputPasswordToggle,
   IonButton,
   IonToast,
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonItem,
-  IonButtons,
-  IonLabel,
-  IonToggle,
   IonContent,
   IonIcon,
 } from '@ionic/angular/standalone';
@@ -24,26 +17,19 @@ import { Router } from '@angular/router';
   imports: [
     IonInput,
     IonInputPasswordToggle,
-    ReactiveFormsModule,
     IonButton,
     IonToast,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
-    IonItem,
-    IonButtons,
-    IonLabel,
-    IonToggle,
     IonContent,
-    IonIcon
+    IonIcon,
+    ReactiveFormsModule,
   ],
   providers: [LoginService],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  styleUrls: ['./login.component.scss'], // 👈 corregido
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
-export default class LoginComponent { 
+export class LoginComponent { 
 
   private readonly loginService = inject(LoginService);
 
@@ -72,12 +58,10 @@ export default class LoginComponent {
   }
 
   onRegister() {
-    // Aquí rediriges a la página de registro
     this.router.navigate(['/register']);
   }
 
   onForgotPassword() {
-    // Aquí podrías abrir un modal o redirigir a reset password
     this.router.navigate(['/forgot-password']);
   }
 
