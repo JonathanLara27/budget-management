@@ -8,7 +8,6 @@
 
 <ion-content fullscreen class="ion-padding">
 
-    <!-- Form para filtrar el year and mount -->
     <ion-card>
         <ion-card-header>
             <ion-card-title> {{titleCardFilter()}} </ion-card-title>
@@ -20,35 +19,30 @@
         </ion-card-header>
     </ion-card>
 
-    <!-- Saludo o información rápida -->
     <ion-card>
         <ion-card-header>
             <ion-card-title> {{titleCardBalance()}} </ion-card-title>
         </ion-card-header>
-        <ion-card-content [ngClass]="{
-            'ion-text-success': balance() > 0,
-            'ion-text-danger': balance() < 0
-        }">
+        <ion-card-content>
+        <ion-text [color]="colorBalance()">
             {{ balance() | currency:'S/.':'symbol':'1.2-2' }}
+        </ion-text>
         </ion-card-content>
     </ion-card>
 
-    <!-- Gráfico de gastos por categoría (placeholder) -->
     <ion-card>
         <ion-card-header>
             <ion-card-title> {{titleCardExpenses()}} </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <!-- Aquí más adelante puedes poner un gráfico con ng2-charts o similar -->
             @if (expenses().length) {
-            <app-pie-chart [transactions]="expenses()"></app-pie-chart>
+            <app-pie-chart></app-pie-chart>
             }@else {
             <p>{{emptyExpensesText()}} </p>
             }
         </ion-card-content>
     </ion-card>
 
-    <!-- Últimas transacciones -->
     <ion-card class="card-last-transactions">
         <ion-card-header>
             <ion-card-title>{{titleCardLastTransactions()}} </ion-card-title>
@@ -59,8 +53,12 @@
                 @for (item of lastTransactions(); track $index) {
                 <ion-item>
                     <ion-label>
-                        <h3>{{ item.description ?? '' }}</h3>
-                        <p>{{ item.amount | currency:'S/.':'symbol':'1.2-2' }} - {{ item.category ?? '' }}</p>
+                        <h3>{{ item.description ?? 'Sin descripción' }}</h3>
+                        <p>
+                            <ion-text [color]="item.type ==='expense' ? 'danger':'success' ">
+                                {{ item.amount | currency:'S/.':'symbol':'1.2-2' }}
+                            </ion-text>
+                            - {{ item.category || 'Ingresos' }}</p>
                     </ion-label>
                 </ion-item>
                 }

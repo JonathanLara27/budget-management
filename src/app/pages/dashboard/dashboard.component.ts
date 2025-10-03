@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { IonContent, IonCardContent, IonHeader, IonToolbar, IonTitle, IonCard, IonCardHeader, IonCardTitle, IonList, IonItem, IonLabel, IonDatetime, IonLoading, IonToast } from "@ionic/angular/standalone";
+import { IonContent, IonCardContent, IonHeader, IonToolbar, IonTitle, IonCard, IonCardHeader, IonCardTitle, IonList, IonItem, IonLabel, IonDatetime, IonLoading, IonToast, IonText } from "@ionic/angular/standalone";
 import { addIcons } from 'ionicons';
 import { ICONS_DASHBOARD } from 'src/app/common/constants';
 import { DashboardService } from './dashboard.service';
@@ -29,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     IonLoading,
     // Componentes
     PieChartComponent,
+    IonText,
   ],
   providers: [DashboardService],
   templateUrl: './dashboard.component.html',
@@ -38,8 +39,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 export class DashboardComponent {
 
   private readonly dashboardService = inject(DashboardService);
-
-  // public formDate = this.dashboardService.formDate;
 
   public formDateControl = this.dashboardService.formDateControl;
 
@@ -52,6 +51,8 @@ export class DashboardComponent {
   public incomes = this.dashboardService.incomes;
 
   public balance = this.dashboardService.balance;
+
+  public colorBalance = this.dashboardService.colorBalance;
 
   public title = this.dashboardService.title;
   public titleCardFilter = this.dashboardService.titleCardFilter;

@@ -1,8 +1,9 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DURATION_TOAST } from 'src/app/common/constants';
 import { TransactionsService } from 'src/app/common/services/transactions.service';
 import { DASHBOARD_TITLE, EMPTY_EXPENSES_TEXT, EMPTY_TRANSACTIONS_TEXT, ERROR_TEXT_YEAR, LOADING_TRANSACTIONS_TEXT, TITLE_CARD_BALANCE, TITLE_CARD_EXPENSES, TITLE_CARD_FILTER, TITLE_CARD_LAST_TRANSACTIONS } from './dashboard.constants';
+import { PieChartService } from './compoments/pieChart/pieChart.service';
 
 @Injectable()
 export class DashboardService {
@@ -10,6 +11,7 @@ export class DashboardService {
   private fb  = inject(FormBuilder);
 
   private transactionsService = inject(TransactionsService);
+  private readonly pieChartService = inject(PieChartService);
 
   private year = this.transactionsService.year$;
   private month = this.transactionsService.month$;
@@ -53,15 +55,22 @@ export class DashboardService {
     return incomeTotal - expenseTotal;
   })
 
+  public colorBalance = computed(() => {
+    const balance = this.balance();
+    if(balance > 0) return 'success';
+    if(balance < 0) return 'danger';
+    return 'medium';
+  })
+
   public isLoadingAddTransaction = this.transactionsService.isLoadingAddTransaction;
 
   constructor() {
     this.valueChangesYear();
     this.valueChangesMonth();
-  }
-
-  ngOnInit(): void {
-    this.transactionResource.reload();
+    effect(() => {
+      const expenses = this.expenses();
+      this.pieChartService.setExpenses(expenses.length ? expenses : []);
+    });
   }
 
   public onDateChange(event: any) {
