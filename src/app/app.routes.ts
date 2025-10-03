@@ -21,7 +21,7 @@ export const routes: Routes = [
             {
                 path: 'transactions',
                 loadComponent: () =>
-                    import('./pages/transactions/transactions.component').then(m => m.TransactionsComponent)
+                    import('./pages/transactions-history/transactions-history.component').then(m => m.TransactionsComponent)
             },
             {
                 path: 'add',

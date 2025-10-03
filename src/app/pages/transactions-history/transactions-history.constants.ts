@@ -1,0 +1,1 @@
+export const TRANSACTIONS_HISTORY_TITLE = 'Historial de Movimientos';
