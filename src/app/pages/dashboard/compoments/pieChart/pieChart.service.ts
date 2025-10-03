@@ -1,7 +1,9 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { ChartOptions, Transaction } from 'src/app/common/interfaces';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class PieChartService {
 
   private expenseTransactions = signal<Transaction[]>([]);
