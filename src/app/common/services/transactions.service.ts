@@ -2,7 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { Firestore, addDoc, collection, collectionData, query, where } from '@angular/fire/firestore';
 import { Transaction, reqGetTransactions } from '../interfaces';
 import { AuthService } from './auth.service';
-import { Observable, firstValueFrom, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { rxResource } from '@angular/core/rxjs-interop';
 
 @Injectable({
@@ -18,6 +18,9 @@ export class TransactionsService {
   private addTransactionLoading = signal(false);
   public isLoadingAddTransaction = computed(() => this.addTransactionLoading());
 
+  private errorAddTransaction = signal<string | null>(null);
+  public errorAddTransaction$ = computed(() => this.errorAddTransaction());
+
   private year = signal(new Date().getFullYear());
   public year$ = computed(() => this.year());
   private month = signal(new Date().getMonth() + 1);
@@ -32,9 +35,6 @@ export class TransactionsService {
     defaultValue: [],
   });
 
-  constructor() { }
-
-  // Métodos para cambiar signals
   public setYear(year: number) {
     this.year.set(year);
   }
@@ -44,17 +44,31 @@ export class TransactionsService {
   }
 
   public async addTransaction(transaction: Transaction) {
-    const docRef = await addDoc(this.transactionsCollection, transaction);
-    const newTransaction: Transaction = {
-      ...transaction,
-      id: docRef.id
+    this.addTransactionLoading.set(true);
+    try {
+      this.errorAddTransaction.set(null);
+      const docRef = await addDoc(this.transactionsCollection, transaction);
+      const newTransaction: Transaction = {
+        ...transaction,
+        id: docRef.id
+      }
+      return newTransaction;
+    } catch (error: any) {
+      return this.handleErrorAddTransaction(error);
+    }finally {
+      this.addTransactionLoading.set(false);
     }
-    return newTransaction;
   }
 
-  public getTransactionsResource({ year, month }: reqGetTransactions) {
+
+  private handleErrorAddTransaction(error: any) {
+    this.errorAddTransaction.set(`Error al agregar transacción: ${error.message || error}`);
+    return null;
+  }
+
+  private getTransactionsResource({ year, month }: reqGetTransactions) {
     const user = this.authService.currentUser();
-    if (!user) return of([]); // Retorna un observable vacío si no hay usuario
+    if (!user) return of([]);
     const q = query(this.transactionsCollection,
       where('userId', '==', this.authService.currentUser()?.uid),
       where('year', '==', year),
