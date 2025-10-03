@@ -78,7 +78,6 @@ export class AddTransactionService {
     const { type, amount, date, category, description } = this.form.getRawValue();
     const userId = this.currentUser()!.uid;
     const transaction = buildTransaction(userId, type, amount, date, category, description);
-    console.log("🚀 ~ AddTransactionService ~ buiildTransaction ~ transaction:", transaction)
     return transaction;
   }
 
