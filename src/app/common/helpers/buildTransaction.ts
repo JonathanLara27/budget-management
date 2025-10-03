@@ -1,24 +1,26 @@
-import { Transaction } from "../interfaces";
+import { Transaction, TransactionType } from "../interfaces";
 
-export function createTransaction(
+export function buildTransaction(
     userId: string,
-    type: 'income' | 'expense',
+    type: TransactionType,
     amount: number,
     date: string,                  // formato "YYYY-MM-DD"
     category?: string,
     description?: string
 ): Transaction {
     const parsedDate = new Date(date);
-    const year = parsedDate.getUTCFullYear();
-    const month = parsedDate.getUTCMonth() + 1;
-    const day = parsedDate.getUTCDate();
+
+    // Usar métodos locales
+    const year = parsedDate.getFullYear();
+    const month = parsedDate.getMonth() + 1; // enero=0
+    const day = parsedDate.getDate();
 
     return {
         userId,
         type,
         amount,
-        category: category ?? null,         // si no se pasa → null
-        description: description ?? null,   // si no se pasa → null
+        category: category ?? null,
+        description: description ?? null,
         date,
         year,
         month,
@@ -26,3 +28,4 @@ export function createTransaction(
         createdAt: new Date().toISOString()
     };
 }
+
