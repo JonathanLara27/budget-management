@@ -36,11 +36,11 @@ export class DashboardComponent {
 
   ngOnInit() {
     // Datos de ejemplo, más adelante traer de Firebase
-    this.transactions = [
-      { title: 'Almuerzo', amount: 15, category: 'Comida', date: '2025-10-02' },
-      { title: 'Taxi', amount: 7, category: 'Transporte', date: '2025-10-02' },
-      { title: 'Café', amount: 3, category: 'Comida', date: '2025-10-01' }
-    ];
+    // this.transactions = [
+    //   { title: 'Almuerzo', amount: 15, category: 'Comida', date: '2025-10-02' },
+    //   { title: 'Taxi', amount: 7, category: 'Transporte', date: '2025-10-02' },
+    //   { title: 'Café', amount: 3, category: 'Comida', date: '2025-10-01' }
+    // ];
   }
 
   getTotalExpenses(): number {
