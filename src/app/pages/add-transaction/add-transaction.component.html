@@ -1,7 +1,61 @@
-<ion-content fullscreen>
-    <p>add-transaction works!</p>
-        <ion-button (click)="onAddTransaction()">
-            <ion-icon slot="start" name="add-circle-outline"></ion-icon>
-            Agregar Transacción
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title>
+            {{title()}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="ion-padding" >
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+        <!-- Tipo de transacción -->
+        <ion-item>
+            <ion-select formControlName="type" label="Tipo" label-placement="fixed">
+                @for (type of typesTransaction(); track $index) {
+                    <ion-select-option [value]="type.key"> {{type.value}} </ion-select-option>
+                }
+            </ion-select>
+        </ion-item>
+
+        <!-- Monto -->
+        <ion-item>
+            <ion-input type="number" label="Monto" labelPlacement="fixed" formControlName="amount"></ion-input>
+        </ion-item>
+
+        <!-- Categoría (solo obligatorio si es gasto) -->
+        @if (isExpense()) {
+            <ion-item>
+                <ion-select formControlName="category" label="Categoría" label-placement="fixed">
+                    @for (category of categories(); track $index) {
+                        <ion-select-option [value]="category"> {{category}} </ion-select-option>
+                    }
+                </ion-select>
+            </ion-item>
+        }
+
+        <!-- Descripción -->
+        <ion-item>
+            <ion-input type="text" label="Descripción" labelPlacement="fixed" formControlName="description"></ion-input>
+        </ion-item>
+
+        <ion-item>
+            <ion-datetime formControlName="date" presentation="date" value-format="YYYY-MM-DD" locale="es-ES"></ion-datetime>
+        </ion-item>
+
+        <!-- Botón Guardar -->
+        <ion-button expand="block" type="submit" [disabled]="form.invalid">
+            Guardar movimiento
         </ion-button>
-</ion-content>>
+
+    </form>
+</ion-content>
+
+<ion-loading [isOpen]="isLoadingAddTransaction()" [message]="messageAddTransaction()" spinner="crescent">
+</ion-loading>
+
+<ion-toast [isOpen]="!!errorAddTransaction()" [message]="errorAddTransaction()" [duration]="durationToast()"
+    color="danger"></ion-toast>
+
+<ion-toast [isOpen]="!!successAddTransaction()" [message]="successAddTransaction()" [duration]="durationToast()"
+    color="success"></ion-toast>
