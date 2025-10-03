@@ -21,9 +21,16 @@ export class TransactionsService {
   private errorAddTransaction = signal<string | null>(null);
   public errorAddTransaction$ = computed(() => this.errorAddTransaction());
 
-  private year = signal(new Date().getFullYear());
+  private successAddTransaction = signal<string | null>(null);
+  public successAddTransaction$ = computed(() => this.successAddTransaction());
+  public messageAddTransaction$ = computed(() => 'Agregando movimiento...');
+
+  private today = signal<Date>(new Date());
+  public today$ = computed(() => this.today());
+
+  private year = signal(this.today().getFullYear());
   public year$ = computed(() => this.year());
-  private month = signal(new Date().getMonth() + 1);
+  private month = signal(this.today().getMonth() + 1);
   public month$ = computed(() => this.month());
 
   public transactionsResource = rxResource<Transaction[], void>({
@@ -45,6 +52,8 @@ export class TransactionsService {
 
   public async addTransaction(transaction: Transaction) {
     this.addTransactionLoading.set(true);
+    this.successAddTransaction.set(null);
+    this.errorAddTransaction.set(null);
     try {
       this.errorAddTransaction.set(null);
       const docRef = await addDoc(this.transactionsCollection, transaction);
@@ -52,6 +61,7 @@ export class TransactionsService {
         ...transaction,
         id: docRef.id
       }
+      this.successAddTransaction.set('Transacción agregada con éxito');
       return newTransaction;
     } catch (error: any) {
       return this.handleErrorAddTransaction(error);
