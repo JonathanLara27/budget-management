@@ -1,0 +1,12 @@
+apx-chart {
+  max-width: 100%;
+  margin: 8px 0 16px;
+  display: block;
+}
+
+:host {
+  display: flex;
+  justify-content: center; /* horizontal */
+  align-items: center;     /* vertical si el contenedor tiene altura */
+  width: 100%;
+}
