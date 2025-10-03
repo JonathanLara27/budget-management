@@ -1,6 +1,16 @@
-import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } from '@ionic/angular/standalone';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
+import {
+  IonIcon,
+  IonLabel,
+  IonRouterOutlet,
+  IonTabBar,
+  IonTabButton,
+  IonTabs,
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { ICONS_TABS } from '../common/constants';
+import { AuthService } from '../common/services/auth.service';
 
 @Component({
   selector: 'app-tabs',
@@ -8,17 +18,25 @@ import { IonIcon, IonLabel, IonRouterOutlet, IonTabBar, IonTabButton, IonTabs } 
   styleUrls: ['tabs.page.scss'],
   standalone: true,
   imports: [
-    RouterLink,
+    RouterModule,
     IonTabs,
-    IonRouterOutlet,
     IonTabBar,
     IonTabButton,
     IonIcon,
-    IonLabel
-  ]
+    IonLabel,
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TabsPage {
 
-  constructor() {}
+  private readonly authService = inject(AuthService);
+
+  constructor() {
+    addIcons(ICONS_TABS)
+  }
+
+  public async logout() {
+    await this.authService.logout();
+  }
 
 }

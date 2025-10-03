@@ -1,7 +1,7 @@
 <ion-content class="login-content" fullscreen>
   <div class="login-wrapper">
     <div class="login-container">
-      <h1 class="app-title">Budget Management</h1>
+      <h1 class="app-title">{{appTitle()}} </h1>
 
       <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="login-form">
         <ion-input type="email" label="Correo electrónico" label-placement="floating" formControlName="email"
@@ -11,22 +11,22 @@
           <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-input>
 
-        <ion-button expand="block" type="submit" [disabled]="loginForm.invalid" class="submit-button">
-          Iniciar sesión
+        <ion-button expand="block" type="submit" [disabled]="loginForm.invalid">
+          {{buttonLabelLogin()}}
         </ion-button>
       </form>
 
     <div class="extra-buttons">
       <ion-button expand="block" fill="outline" color="medium" (click)="onLoginWithGoogle()">
         <ion-icon slot="start" name="logo-google"></ion-icon>
-        Login con Google
+        {{buttonLabelGoogle()}}
       </ion-button>
       <ion-button expand="block" fill="outline" color="secondary" (click)="onRegister()">
-        Registrarse
+        {{buttonLabelRegister()}}
       </ion-button>
     </div>
     <div class="forgot-password">
-      <a (click)="onForgotPassword()">¿Olvidaste tu contraseña?</a>
+      <a (click)="onForgotPassword()"> {{labelForgotPassword()}} </a>
     </div>
     </div>
   </div>

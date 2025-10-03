@@ -14,6 +14,8 @@ import {
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { addIcons } from 'ionicons';
+import { ICONS_REGISTER } from 'src/app/common/constants';
 @Component({
   selector: 'app-register',
   imports: [
@@ -47,16 +49,25 @@ export class RegisterComponent {
   public errorMessage = this.registerService.errorMessage;
   public durationToast = this.registerService.durationToast;
 
+  public buttonLaberRegister = this.registerService.buttonLaberRegister;
+  public labelHaveAccount = this.registerService.labelHaveAccount;
+
   public showValidations = this.registerService.showValidations;
   public iteratorValidations = this.registerService.iteratorValidations;
 
   public isValidForm = this.registerService.isValidForm;
+
+  constructor() {
+    addIcons(ICONS_REGISTER)
+  }
 
 
   public goToLoginPage() {
     this.router.navigate(['/login']);
   }
 
-  public onSubmit() {}
+  public onSubmit() {
+    return this.registerService.onSubmit();
+  }
 
 }

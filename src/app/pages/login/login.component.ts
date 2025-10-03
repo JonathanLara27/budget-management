@@ -12,6 +12,9 @@ import { LoginService } from './login.service';
 import { DarkModeService } from 'src/app/common/services/darkMode.service';
 import { Router } from '@angular/router';
 
+import { addIcons } from 'ionicons';
+import { ICONS_LOGIN } from 'src/app/common/constants';
+
 @Component({
   selector: 'app-login',
   imports: [
@@ -25,7 +28,7 @@ import { Router } from '@angular/router';
   ],
   providers: [LoginService],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'], // 👈 corregido
+  styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true
 })
@@ -39,15 +42,25 @@ export class LoginComponent {
 
   public darkMode = this.darkModeService.darkMode;
 
+  constructor() {
+    addIcons(ICONS_LOGIN)
+  }
+
   public toggleDarkMode(event: any) {
     return this.darkModeService.toggleDarkMode(event);
   }
 
-  loginForm = this.loginService.loginForm;
+  public loginForm = this.loginService.loginForm;
 
-  messageLoginError = this.loginService.messageLoginError;
+  public messageLoginError = this.loginService.messageLoginError;
 
-  durationToast = this.loginService.durationToast;
+  public durationToast = this.loginService.durationToast;
+
+  public appTitle = this.loginService.appTitle;
+  public buttonLabelLogin = this.loginService.buttonLabelLogin;
+  public buttonLabelGoogle = this.loginService.buttonLabelGoogle;
+  public buttonLabelRegister = this.loginService.buttonLabelRegister;
+  public labelForgotPassword = this.loginService.labelForgotPassword;
 
   async onSubmit() {
     await this.loginService.loginWithEmail();
@@ -62,7 +75,7 @@ export class LoginComponent {
   }
 
   onForgotPassword() {
-    this.router.navigate(['/forgot-password']);
+    this.router.navigate(['/recover-password']);
   }
 
 }

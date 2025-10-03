@@ -15,7 +15,7 @@
                 </ion-input>
 
                 <ion-button expand="block" type="submit" [disabled]="!isValidForm()" class="submit-button">
-                    Registrarse
+                    {{buttonLaberRegister()}}
                 </ion-button>
             </form>
 
@@ -34,7 +34,7 @@
 
             <div class="extra-buttons">
                 <ion-button expand="block" fill="outline" color="secondary" (click)="goToLoginPage()">
-                    Ya tengo una cuenta
+                    {{labelHaveAccount()}}
                 </ion-button>
             </div>
         </div>
