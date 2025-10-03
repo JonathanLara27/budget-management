@@ -36,25 +36,6 @@ export class DashboardComponent {
 
   private readonly dashboardService = inject(DashboardService);
 
-  balance: number = 1250; // ejemplo, luego se obtiene de Firebase
-  transactions: Transaction[] = []; // últimas transacciones
-
-  public chartOptions = this.dashboardService.chartOptions;
-
-
-  ngOnInit() {
-    // Datos de ejemplo, más adelante traer de Firebase
-    // this.transactions = [
-    //   { title: 'Almuerzo', amount: 15, category: 'Comida', date: '2025-10-02' },
-    //   { title: 'Taxi', amount: 7, category: 'Transporte', date: '2025-10-02' },
-    //   { title: 'Café', amount: 3, category: 'Comida', date: '2025-10-01' }
-    // ];
-  }
-
-  getTotalExpenses(): number {
-    return this.transactions.reduce((sum, t) => sum + t.amount, 0);
-  }
-
   constructor() {
     addIcons(ICONS_DASHBOARD)
   }
