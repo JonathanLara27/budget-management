@@ -1,7 +1,8 @@
+export type TransactionType = 'income' | 'expense';
 export interface  Transaction {
     id?: string;              // id generado por Firestore
     userId: string;           // id del usuario autenticado (Google UID)
-    type: 'income' | 'expense'; // tipo de transacción
+    type: TransactionType; // tipo de transacción
     amount: number;           // monto
     category: string | null;        // requerido en gasto, opcional en ingreso
     description: string | null;     // texto libre
