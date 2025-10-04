@@ -34,6 +34,11 @@ export const routes: Routes = [
                     import('./pages/profile/profile.component').then(m => m.ProfileComponent)
             },
             {
+                path: 'settings',
+                loadComponent: () => import('./pages/settings/settings.component').then(m => m.SettingsComponent),
+                canActivate: [authGuard] // ✅ aquí aplicas el guard
+            },
+            {
                 path: '',
                 redirectTo: '/tabs/dashboard',
                 pathMatch: 'full'
@@ -50,6 +55,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/register/register.component').then(m => m.RegisterComponent),
         canActivate : [loginGuard] // ✅ aquí aplicas el guard
     },
+    
     {
         path: 'recover-password',
         loadComponent: () => import('./pages/recover-password/recover-password.component').then(m => m.RecoverPasswordComponent),
