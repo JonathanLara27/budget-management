@@ -6,7 +6,43 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen>
-    <p>profile works!</p>
-    <ion-button (click)="logout()">Logout</ion-button>
+<ion-content fullscreen class="ion-padding" style="--padding-bottom: 56px;">
+    
+    <!-- Card de información del usuario -->
+    <ion-card>
+        <section class="profile-card-header ion-text-center">
+            <ion-avatar class="profile-avatar">
+                <img [src]="currentUser()?.photoURL || 'assets/icon/default-avatar.jpg'" alt="Foto de perfil" />
+            </ion-avatar>
+            <ion-card-header>
+                <ion-card-title>{{ currentUser()?.displayName || 'Usuario' }}</ion-card-title>
+                <ion-card-subtitle>{{ currentUser()?.email }}</ion-card-subtitle>
+            </ion-card-header>
+        </section>
+
+        <ion-card-content>
+            <ion-item lines="none">
+                <ion-icon name="calendar-outline" slot="start"></ion-icon>
+                <ion-label> {{menberText()}} </ion-label>
+                <ion-note slot="end">{{ formattedDate }}</ion-note>
+            </ion-item>
+        
+        </ion-card-content>
+    </ion-card>
+
+    <!-- Acciones -->
+    <ion-card>
+        <ion-list>
+            <ion-item (click)="goToSettings()">
+                <ion-icon name="settings-outline" slot="start"></ion-icon>
+                <ion-label> {{configurationText()}} </ion-label>
+            </ion-item>
+    
+            <ion-item (click)="logout()">
+                <ion-icon name="log-out-outline" slot="start"></ion-icon>
+                <ion-label> {{logoutText()}} </ion-label>
+            </ion-item>
+        </ion-list>
+    </ion-card>
+
 </ion-content>

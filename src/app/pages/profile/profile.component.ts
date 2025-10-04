@@ -5,20 +5,22 @@ import { addIcons } from 'ionicons';
 import { ICONS_PROFILE } from 'src/app/common/constants';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { ProfileService } from './profile.service';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
     CommonModule,
-    IonContent, 
-    IonButton,
-    IonHeader,
-    IonButton,
-    IonIcon,
-    IonToolbar,
-    IonTitle,
-    IonLoading,
+    // IonContent, 
+    // IonButton,
+    // IonHeader,
+    // IonButton,
+    // IonIcon,
+    // IonToolbar,
+    // IonTitle,
+    // IonLoading,
+    IonicModule,
   ],
   providers: [
     ProfileService
@@ -29,18 +31,28 @@ import { ProfileService } from './profile.service';
 })
 export class ProfileComponent { 
 
-  private authService = inject(AuthService);
-
   private readonly profileService = inject(ProfileService);
 
   public title = this.profileService.title;
+
+  public menberText = this.profileService.menberText;
+  public configurationText = this.profileService.configurationText;
+  public logoutText = this.profileService.logoutText;
+
+  public currentUser = this.profileService.currentUser;
+
+  public formattedDate = this.profileService.formattedDate;
 
   constructor() {
     addIcons(ICONS_PROFILE)
   }
 
-  public async logout(){
-    await this.authService.logout();
+  public logout(){
+    return this.profileService.logout();
+  }
+
+  public goToSettings() {
+    return this.profileService.goToSettings();
   }
 
 }
