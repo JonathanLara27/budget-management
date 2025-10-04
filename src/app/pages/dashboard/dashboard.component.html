@@ -6,7 +6,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen class="ion-padding">
+<ion-content fullscreen class="ion-padding" style="--padding-bottom: 56px;">
 
     <ion-card>
         <ion-card-header>
@@ -35,6 +35,7 @@
             <ion-card-title> {{titleCardExpenses()}} </ion-card-title>
         </ion-card-header>
         <ion-card-content>
+            <!-- BUG al cambiar de pagina no se renderiza. -->
             @if (expenses().length) {
             <app-pie-chart></app-pie-chart>
             }@else {
