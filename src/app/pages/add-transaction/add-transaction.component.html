@@ -39,9 +39,11 @@
             <ion-input type="text" label="Descripción" labelPlacement="fixed" formControlName="description"></ion-input>
         </ion-item>
 
-        <ion-item>
-            <ion-datetime formControlName="date" presentation="date" value-format="YYYY-MM-DD" locale="es-ES"></ion-datetime>
-        </ion-item>
+        <div class="center-content">
+            <ion-item>
+                <ion-datetime formControlName="date" presentation="date" value-format="YYYY-MM-DD" locale="es-ES"></ion-datetime>
+            </ion-item>
+        </div>
 
         <!-- Botón Guardar -->
         <ion-button expand="block" type="submit" [disabled]="form.invalid">
