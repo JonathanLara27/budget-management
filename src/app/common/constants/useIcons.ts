@@ -7,6 +7,19 @@ import {
     personOutline,
     closeCircle,
     checkmarkCircle,
+    settingsOutline,
+    calendarOutline,
+    personCircleOutline,
+    mailOutline,
+    trashOutline,
+    moonOutline,
+    languageOutline,
+    cashOutline,
+    laptopOutline,
+    keyOutline,
+    bugOutline,
+    informationCircleOutline,
+    documentTextOutline,
 } from 'ionicons/icons';
 export const ICONS_LOGIN = {
     logoGoogle
@@ -35,8 +48,27 @@ export const ICONS_DASHBOARD = {
 
 export const ICONS_PROFILE = {
     logOutOutline,
+    settingsOutline,
+    calendarOutline,
 }
 
 export const ICONS_TRANSACTIONS = {
     
+}
+
+export const ICONS_SETTINGS = {
+    personCircleOutline,
+    mailOutline,
+    logoGoogle,
+    trashOutline,
+    moonOutline,
+    languageOutline,
+    cashOutline,
+    calendarOutline,
+    laptopOutline,
+    keyOutline,
+    bugOutline,
+    informationCircleOutline,
+    documentTextOutline,
+    logOutOutline,
 }
