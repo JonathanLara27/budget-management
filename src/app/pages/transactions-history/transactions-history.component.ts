@@ -4,7 +4,7 @@ import { addIcons } from 'ionicons';
 import { ICONS_TRANSACTIONS } from 'src/app/common/constants';
 import { TransactionsHistoryService } from './transactions-history.service';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IonicModule } from '@ionic/angular';
+import { IonicModule, ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-transactions',
@@ -21,7 +21,7 @@ import { IonicModule } from '@ionic/angular';
   styleUrl: './transactions-history.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TransactionsComponent { 
+export class TransactionsComponent implements ViewWillEnter { 
 
   private readonly transactionsHistoryService = inject(TransactionsHistoryService);
 
@@ -43,6 +43,8 @@ export class TransactionsComponent {
 
   public durationToast = this.transactionsHistoryService.durationToast;
 
+  
+  private transactionsResource = this.transactionsHistoryService.transactionsResource;
   public transactions = this.transactionsHistoryService.transactions;
   public expenses = this.transactionsHistoryService.expenses;
   public totalExpenses = this.transactionsHistoryService.totalExpenses;
@@ -58,10 +60,8 @@ export class TransactionsComponent {
     addIcons(ICONS_TRANSACTIONS)
   }
 
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-    this.transactionsHistoryService.transactionResource.reload();
+  ionViewWillEnter() {
+    this.transactionsResource.reload();
   }
 
   public onDateChange(event: any) {

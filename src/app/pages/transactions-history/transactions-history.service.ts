@@ -46,7 +46,7 @@ export class TransactionsHistoryService {
 
   public dateControl = this.fb.control<string>(this.today().toISOString(), [Validators.required]);
 
-  public transactionResource = rxResource<Transaction[], void>({
+  public transactionsResource = rxResource<Transaction[], void>({
     loader: () => {
       const year = this.year();
       const month = this.month();
@@ -54,13 +54,13 @@ export class TransactionsHistoryService {
     },
     defaultValue: [],
   });
-  public isLoadingGetTransactions = computed(() => this.transactionResource.isLoading());
-  public errorGetTransactions = computed(() => this.transactionResource.error());
+  public isLoadingGetTransactions = computed(() => this.transactionsResource.isLoading());
+  public errorGetTransactions = computed(() => this.transactionsResource.error());
 
   public durationToast = computed(() => DURATION_TOAST);
 
 
-  public transactions = computed(() => this.transactionResource.value().sort((a, b) => b.date.localeCompare(a.date)));
+  public transactions = computed(() => this.transactionsResource.value().sort((a, b) => b.date.localeCompare(a.date)));
 
   public expenses = computed(() => this.transactions().filter(t => t.type === 'expense'));
 
@@ -126,7 +126,7 @@ export class TransactionsHistoryService {
     const [year, month] = [new Date(value).getFullYear(), new Date(value).getMonth() + 1];
     if (!this.validateYear(year)) return this.handleErrorYear(year);
     this.setFormDate(year, month);
-    this.transactionResource.reload();
+    this.transactionsResource.reload();
   }
 
   public onDateChange(event: any) {
