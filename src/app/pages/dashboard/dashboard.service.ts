@@ -4,19 +4,26 @@ import { DURATION_TOAST } from 'src/app/common/constants';
 import { TransactionsService } from 'src/app/common/services/transactions.service';
 import { DASHBOARD_TITLE, EMPTY_EXPENSES_TEXT, EMPTY_TRANSACTIONS_TEXT, ERROR_TEXT_YEAR, LOADING_TRANSACTIONS_TEXT, TITLE_CARD_BALANCE, TITLE_CARD_EXPENSES, TITLE_CARD_FILTER, TITLE_CARD_LAST_TRANSACTIONS } from './dashboard.constants';
 import { PieChartService } from './compoments/pieChart/pieChart.service';
+import { rxResource } from '@angular/core/rxjs-interop';
+import { Transaction } from 'src/app/common/interfaces';
 
 @Injectable()
 export class DashboardService {
 
-  private fb  = inject(FormBuilder);
+  private fb = inject(FormBuilder);
 
   private transactionsService = inject(TransactionsService);
   private readonly pieChartService = inject(PieChartService);
 
-  private year = this.transactionsService.year$;
-  private month = this.transactionsService.month$;
+  private today = signal<Date>(new Date());
+
+  private year = signal<number>(this.today().getFullYear());
+  private setYear = (year: number) => this.year.set(year)
+  private month = signal<number>(this.today().getMonth() + 1);
+  private setMonth = (month: number) => this.month.set(month)
+
   private formDate = this.fb.nonNullable.group({
-    year : this.fb.control<number>(this.year(), [Validators.required, Validators.min(2000), Validators.max(2100)]),
+    year: this.fb.control<number>(this.year(), [Validators.required, Validators.min(2000), Validators.max(2100)]),
     month: this.fb.control<number>(this.month(), [Validators.required, Validators.min(1), Validators.max(12)]),
   });
 
@@ -25,8 +32,15 @@ export class DashboardService {
 
   public formDateControl = this.fb.control<string | null>(null, [Validators.required]);
 
+  public transactionResource = rxResource<Transaction[], void>({
+    loader: () => {
+      const year = this.year();
+      const month = this.month();
+      return this.transactionsService.getTransactionsResource({ year, month });
+    },
+    defaultValue: [],
+  });
 
-  public transactionResource = this.transactionsService.transactionsResource;
   public isLoadingGetTransactions = computed(() => this.transactionResource.isLoading());
   public errorGetTransactions = computed(() => this.transactionResource.error());
 
@@ -35,7 +49,7 @@ export class DashboardService {
   public titleCardBalance = computed(() => TITLE_CARD_BALANCE);
   public titleCardExpenses = computed(() => TITLE_CARD_EXPENSES);
   public emptyExpensesText = computed(() => EMPTY_EXPENSES_TEXT);
-  public titleCardLastTransactions = computed(() =>  TITLE_CARD_LAST_TRANSACTIONS);
+  public titleCardLastTransactions = computed(() => TITLE_CARD_LAST_TRANSACTIONS);
   public emptyTransactionsText = computed(() => EMPTY_TRANSACTIONS_TEXT);
   public messageLoadingTransactions = computed(() => LOADING_TRANSACTIONS_TEXT);
 
@@ -47,7 +61,7 @@ export class DashboardService {
 
   public incomes = computed(() => this.transactions().filter(t => t.type === 'income'));
 
-  public lastTransactions = computed(()=> this.transactions().slice(0,5));
+  public lastTransactions = computed(() => this.transactions().slice(0, 5));
 
   public balance = computed(() => {
     const incomeTotal = this.incomes().reduce((sum, t) => sum + t.amount, 0);
@@ -57,8 +71,8 @@ export class DashboardService {
 
   public colorBalance = computed(() => {
     const balance = this.balance();
-    if(balance > 0) return 'success';
-    if(balance < 0) return 'danger';
+    if (balance > 0) return 'success';
+    if (balance < 0) return 'danger';
     return 'medium';
   })
 
@@ -78,10 +92,6 @@ export class DashboardService {
     if (!value) return;
     this.setDate(value);
   }
-
-  private setYear = (year: number) => this.transactionsService.setYear(year);
-
-  private setMonth = (month: number) => this.transactionsService.setMonth(month);
 
   private setDate(value: string) {
     this.messageErrorYear.set(null);
@@ -106,19 +116,19 @@ export class DashboardService {
     });
   }
 
-  private valueChangesYear(){
+  private valueChangesYear() {
     this.formDate.get('year')?.valueChanges.subscribe({
       next: (year) => {
-        if(!year) return;
+        if (!year) return;
         this.setYear(year);
       }
     });
   }
 
-  private valueChangesMonth(){
+  private valueChangesMonth() {
     this.formDate.get('month')?.valueChanges.subscribe({
       next: (month) => {
-        if(!month) return;
+        if (!month) return;
         this.setMonth(month);
       }
     });
