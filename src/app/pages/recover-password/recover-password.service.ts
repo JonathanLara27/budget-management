@@ -38,7 +38,7 @@ export class RecoverPasswordService {
     if (!isValid) return;
     const { email } = this.recoverForm.getRawValue();
     try {
-      await this.authService.resetPassword(email!)
+      await this.authService.sendPasswordResetEmail(email!)
       this.messageSuccess.set('Se ha enviado un correo para restablecer la contraseña. Revisa tu spam.');
       this.mesageRecoverError.set(null);
       
