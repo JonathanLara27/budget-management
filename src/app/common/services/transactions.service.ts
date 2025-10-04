@@ -35,7 +35,7 @@ export class TransactionsService {
         ...transaction,
         id: docRef.id
       }
-      this.successAddTransaction.set('Transacción agregada con éxito');
+      this.successAddTransaction.set('Movimiento agregado con éxito');
       return newTransaction;
     } catch (error: any) {
       return this.handleErrorAddTransaction(error);
