@@ -42,6 +42,8 @@ export class DashboardComponent {
 
   public formDateControl = this.dashboardService.formDateControl;
 
+  private transactionsResourse = this.dashboardService.transactionResource;
+
   public transactions = this.dashboardService.transactions;
 
   public lastTransactions = this.dashboardService.lastTransactions;
@@ -70,6 +72,12 @@ export class DashboardComponent {
 
   constructor() {
     addIcons(ICONS_DASHBOARD)
+  }
+
+  ngOnInit(): void {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.transactionsResourse.reload();
   }
 
   public onDateChange(event:any){
