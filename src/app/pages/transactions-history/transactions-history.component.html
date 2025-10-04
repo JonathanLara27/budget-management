@@ -8,4 +8,61 @@
 
 <ion-content fullscreen class="ion-padding">
 
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{ titleCardFilters() }}</ion-card-title>
+        </ion-card-header>
+    
+        <ion-card-content>
+            <form [formGroup]="form">
+                <div class="center-content">
+                    <ion-item lines="none">
+                        <ion-datetime presentation="month-year" [formControl]="dateControl" (ionChange)="onDateChange($event)">
+                        </ion-datetime>
+                    </ion-item>
+                </div>
+    
+                <ion-item>
+                    <ion-select formControlName="type" interface="popover" label ="Tipo" label-placement="fixed">
+                        @for(type of types(); track type.value) {
+                            <ion-select-option [value]="type.value">{{ type.label }}</ion-select-option>
+                        }
+                    </ion-select>
+                </ion-item>
+            </form>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title>{{ titleCardHistory() }}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-list>
+                @for(transaction of filteredTransactions(); track transaction.id) {
+                    <ion-item>
+                        <ion-label>
+                            <h2>{{ transaction.category || 'Sin categoría' }}</h2>
+                            <p>{{ transaction.description || '—' }}</p>
+                            <small>{{ transaction.date | date:'dd MMM yyyy' }}</small>
+                        </ion-label>
+                        <ion-text [color]="transaction.type === 'income' ? 'success' : 'danger'">
+                            {{ transaction.amount | currency:'S/':'symbol':'1.2-2' }}
+                        </ion-text>
+                    </ion-item>
+                }@empty {
+                    <p class="ion-text-center"> {{ messageEmptyTransactions() }} </p>
+                }
+                
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+
 </ion-content>
+
+<ion-loading [isOpen]="isLoadingGetTransactions()" [message]="messageLoadingTransactions()" spinner="crescent">
+</ion-loading>
+
+<ion-toast [isOpen]="!!errorGetTransactions()" [message]="errorGetTransactions()" [duration]="durationToast()" color="danger"></ion-toast>
+
+<ion-toast [isOpen]="!!messageErrorYear()" [message]="messageErrorYear()" [duration]="durationToast()" color="danger"></ion-toast>
