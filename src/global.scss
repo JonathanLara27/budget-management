@@ -36,3 +36,9 @@
 @import "@ionic/angular/css/palettes/dark.class.css";
 // @import "@ionic/angular/css/palettes/dark.system.css";
 
+.center-content {
+    display: flex;
+    justify-content: center; /* centra horizontal */
+    align-items: center; /* centra vertical */
+}
+
