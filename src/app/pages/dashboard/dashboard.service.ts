@@ -110,7 +110,7 @@ export class DashboardService {
   }
 
   private setFormDate(year: number, month: number) {
-    this.formDate.setValue({
+    this.formDate.patchValue({
       year,
       month
     });
