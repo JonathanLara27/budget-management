@@ -5,7 +5,7 @@ import { TransactionType } from 'src/app/common/interfaces';
 import { TransactionsService } from 'src/app/common/services/transactions.service';
 import { AuthService } from 'src/app/common/services/auth.service';
 import { buildTransaction } from 'src/app/common/helpers';
-import { DURATION_TOAST } from 'src/app/common/constants';
+import { DURATION_TOAST_VERY_SHORT } from 'src/app/common/constants';
 
 @Injectable()
 export class AddTransactionService {
@@ -32,7 +32,7 @@ export class AddTransactionService {
   public successAddTransaction = this.transactionsService.successAddTransaction$;
   public messageAddTransaction = this.transactionsService.messageAddTransaction$;
 
-  public durationToast = computed(() => DURATION_TOAST);
+  public durationToast = computed(() => DURATION_TOAST_VERY_SHORT);
 
   public form = this.fb.nonNullable.group({
     type: this.fb.nonNullable.control<TransactionType>('expense', [Validators.required, Validators.pattern('^(income|expense)$')]),
