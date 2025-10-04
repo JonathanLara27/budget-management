@@ -6,6 +6,7 @@ import { ICONS_DASHBOARD } from 'src/app/common/constants';
 import { DashboardService } from './dashboard.service';
 import { PieChartComponent } from './compoments/pieChart/pieChart.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ViewWillEnter } from '@ionic/angular';
 
 @Component({
   selector: 'app-dashboard',
@@ -36,7 +37,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrl: './dashboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent {
+export class DashboardComponent implements ViewWillEnter {
 
   private readonly dashboardService = inject(DashboardService);
 
@@ -74,9 +75,7 @@ export class DashboardComponent {
     addIcons(ICONS_DASHBOARD)
   }
 
-  ngOnInit(): void {
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
+  ionViewWillEnter() {
     this.transactionsResourse.reload();
   }
 

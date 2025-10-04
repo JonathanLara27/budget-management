@@ -35,7 +35,6 @@
             <ion-card-title> {{titleCardExpenses()}} </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <!-- BUG al cambiar de pagina no se renderiza. -->
             @if (expenses().length) {
             <app-pie-chart></app-pie-chart>
             }@else {
