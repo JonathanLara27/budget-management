@@ -83,7 +83,8 @@ export class DashboardService {
     this.valueChangesMonth();
     effect(() => {
       const expenses = this.expenses();
-      this.pieChartService.setExpenses(expenses.length ? expenses : []);
+      if (!expenses.length) return;
+      this.pieChartService.setExpenses(this.expenses());
     });
   }
 
