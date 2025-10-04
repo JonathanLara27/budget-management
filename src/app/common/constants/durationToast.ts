@@ -1,1 +1,5 @@
 export const DURATION_TOAST = 5000;
+export const DURATION_TOAST_VERY_SHORT = 1000;
+export const DURATION_TOAST_SHORT = 3000;
+export const DURATION_TOAST_LONG = 7000;
+export const DURATION_TOAST_VERY_LONG = 10000;
