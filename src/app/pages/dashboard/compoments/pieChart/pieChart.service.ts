@@ -13,16 +13,21 @@ export class PieChartService {
   private categoryTotals = computed(() => {
     const map = new Map<string, number>();
     const transactions = this.expenseTransactions();
+
     transactions.forEach(t => {
       const cat = (t.category ?? 'Sin categoría').trim() || 'Sin categoría';
-      map.set(cat, (map.get(cat) ?? 0) + t.amount);
+      const current = map.get(cat) ?? 0;
+      map.set(cat, +(current + t.amount).toFixed(2)); // 👈 aquí aplicas el redondeo
     });
 
     // convertir a array y ordenar
-    const arr = Array.from(map.entries()).map(([category, total]) => ({ category, total }));
-    arr.sort((a, b) => b.total - a.total);
+    const arr = Array.from(map.entries())
+      .map(([category, total]) => ({ category, total: +total.toFixed(2) })) // 👈 seguridad extra
+      .sort((a, b) => b.total - a.total);
+
     return arr;
   });
+
 
   private labels = computed(() => this.categoryTotals().map(x => x.category));
   private series = computed(() => this.categoryTotals().map(x => x.total));
