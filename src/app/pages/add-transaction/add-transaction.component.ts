@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IonButton, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonLoading, IonModal, IonSelectOption, IonTitle, IonToolbar } from "@ionic/angular/standalone";
+import { IonButton, IonContent, IonDatetime, IonDatetimeButton, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonLoading, IonModal, IonSelectOption, IonTitle, IonToolbar, IonSelect, IonToast } from "@ionic/angular/standalone";
 import { addIcons } from 'ionicons';
 import { ICONS_ADD_TRANSACTION } from 'src/app/common/constants';
 import { AddTransactionService } from './add-transaction.service';
@@ -13,21 +13,19 @@ import { IonicModule } from '@ionic/angular';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    // IonHeader,
-    // IonContent,
-    // IonButton,
-    // IonIcon,
-    // IonToolbar,
-    // IonTitle,
-    // IonLoading,
-    // IonDatetime,
-    // IonDatetimeButton,
-    // IonModal,
-    // IonItem,
-    // IonInput,
-    // IonLabel,
-    // IonSelectOption,
-    IonicModule,
+    IonHeader,
+    IonContent,
+    IonButton,
+    IonToolbar,
+    IonTitle,
+    IonLoading,
+    IonDatetime,
+    IonItem,
+    IonInput,
+    IonSelect,
+    IonSelectOption,
+    IonToast
+    // IonicModule,
   ],
   providers: [
     AddTransactionService
