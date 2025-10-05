@@ -5,7 +5,6 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   ChartComponent
 } from "ng-apexcharts";
-import { ChartOptions, Transaction } from 'src/app/common/interfaces';
 import { PieChartService } from './pieChart.service';
 
 @Component({
