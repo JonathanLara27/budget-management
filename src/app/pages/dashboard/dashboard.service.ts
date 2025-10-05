@@ -2,10 +2,11 @@ import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { DURATION_TOAST } from 'src/app/common/constants';
 import { TransactionsService } from 'src/app/common/services/transactions.service';
-import { DASHBOARD_TITLE, EMPTY_EXPENSES_TEXT, EMPTY_TRANSACTIONS_TEXT, ERROR_TEXT_YEAR, LOADING_TRANSACTIONS_TEXT, TITLE_CARD_BALANCE, TITLE_CARD_EXPENSES, TITLE_CARD_FILTER, TITLE_CARD_LAST_TRANSACTIONS } from './dashboard.constants';
+import { DASHBOARD_TITLE, EMPTY_EXPENSES_TEXT, EMPTY_TRANSACTIONS_TEXT, ERROR_TEXT_YEAR, LOADING_TRANSACTIONS_TEXT, TITLE_CARD_BALANCE, TITLE_CARD_EXPENSES, TITLE_CARD_FILTER, TITLE_CARD_LAST_TRANSACTIONS, EMPTY_INCOMES_TEXT, TITLE_CARD_INCOMES } from './dashboard.constants';
 import { PieChartService } from './compoments/pieChart/pieChart.service';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { Transaction } from 'src/app/common/interfaces';
+import { LineChartService } from './compoments/line-chart/line-chart.service';
 
 @Injectable()
 export class DashboardService {
@@ -14,6 +15,7 @@ export class DashboardService {
 
   private transactionsService = inject(TransactionsService);
   private readonly pieChartService = inject(PieChartService);
+  private readonly lineChartService = inject(LineChartService);
 
   private today = signal<Date>(new Date());
 
@@ -49,6 +51,9 @@ export class DashboardService {
   public titleCardBalance = computed(() => TITLE_CARD_BALANCE);
   public titleCardExpenses = computed(() => TITLE_CARD_EXPENSES);
   public emptyExpensesText = computed(() => EMPTY_EXPENSES_TEXT);
+  public titleCardIncomes = computed(() => TITLE_CARD_INCOMES);
+  public emptyIncomesText = computed(() => EMPTY_INCOMES_TEXT); 
+
   public titleCardLastTransactions = computed(() => TITLE_CARD_LAST_TRANSACTIONS);
   public emptyTransactionsText = computed(() => EMPTY_TRANSACTIONS_TEXT);
   public messageLoadingTransactions = computed(() => LOADING_TRANSACTIONS_TEXT);
@@ -86,6 +91,11 @@ export class DashboardService {
       if (!expenses.length) return this.pieChartService.setExpenses([]);
       this.pieChartService.setExpenses(this.expenses());
     });
+    effect(() => {
+      const incomes = this.incomes();
+      if (!incomes.length) return this.lineChartService.setIncomes([]);
+      this.lineChartService.setIncomes(this.incomes());
+    })
   }
 
   public onDateChange(event: any) {
