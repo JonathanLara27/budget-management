@@ -36,9 +36,22 @@
         </ion-card-header>
         <ion-card-content>
             @if (expenses().length) {
-            <app-pie-chart></app-pie-chart>
+                <app-pie-chart></app-pie-chart>
             }@else {
-            <p>{{emptyExpensesText()}} </p>
+                <p>{{emptyExpensesText()}} </p>
+            }
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-header>
+            <ion-card-title> {{titleCardIncomes()}} </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            @if (incomes().length) {
+                <app-line-chart></app-line-chart>
+            }@else {
+                <p>{{emptyIncomesText()}} </p>
             }
         </ion-card-content>
     </ion-card>

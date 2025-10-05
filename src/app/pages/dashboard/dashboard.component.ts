@@ -7,6 +7,7 @@ import { DashboardService } from './dashboard.service';
 import { PieChartComponent } from './compoments/pieChart/pieChart.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ViewWillEnter } from '@ionic/angular';
+import { LineChartComponent } from './compoments/line-chart/line-chart.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,9 +29,10 @@ import { ViewWillEnter } from '@ionic/angular';
     IonLabel,
     IonDatetime,
     IonLoading,
+    IonText,
     // Componentes
     PieChartComponent,
-    IonText,
+    LineChartComponent,
   ],
   providers: [DashboardService],
   templateUrl: './dashboard.component.html',
@@ -62,6 +64,8 @@ export class DashboardComponent implements ViewWillEnter {
   public titleCardBalance = this.dashboardService.titleCardBalance;
   public titleCardExpenses = this.dashboardService.titleCardExpenses;
   public emptyExpensesText = this.dashboardService.emptyExpensesText;
+  public titleCardIncomes = this.dashboardService.titleCardIncomes;
+  public emptyIncomesText = this.dashboardService.emptyIncomesText;
   public titleCardLastTransactions = this.dashboardService.titleCardLastTransactions;
   public emptyTransactionsText = this.dashboardService.emptyTransactionsText;
   public messageLoadingTransactions = this.dashboardService.messageLoadingTransactions;
