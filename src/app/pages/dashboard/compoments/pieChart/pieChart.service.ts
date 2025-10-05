@@ -70,16 +70,16 @@ export class PieChartService {
   }
 
   // Ejemplo: agregar un gasto (la señal actualizará el gráfico automáticamente)
-  public addExpense(transaction: Transaction) {
-    if(!transaction || transaction.type !== 'expense') return;
-    const normalizedCategory = (transaction.category ?? 'Sin categoría').trim() || 'Sin categoría';
-    this.expenseTransactions.update(expenses => [...expenses, { ...transaction, category: normalizedCategory }]);
-  }
+  // public addExpense(transaction: Transaction) {
+  //   if(!transaction || transaction.type !== 'expense') return;
+  //   const normalizedCategory = (transaction.category ?? 'Sin categoría').trim() || 'Sin categoría';
+  //   this.expenseTransactions.update(expenses => [...expenses, { ...transaction, category: normalizedCategory }]);
+  // }
 
-  // Ejemplo de uso: eliminar el último gasto
-  public removeLast() {
-    this.expenseTransactions.update(list => list.slice(0, -1));
-  }
+  // // Ejemplo de uso: eliminar el último gasto
+  // public removeLast() {
+  //   this.expenseTransactions.update(list => list.slice(0, -1));
+  // }
 
   constructor() { }
 
