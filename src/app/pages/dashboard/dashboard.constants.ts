@@ -3,6 +3,10 @@ export const TITLE_CARD_FILTER= 'Filtrar por mes y año';
 export const TITLE_CARD_BALANCE= 'Balance Actual';
 export const TITLE_CARD_EXPENSES= 'Gastos por categoría';
 export const EMPTY_EXPENSES_TEXT = 'No hay gastos para este mes.';
+
+export const TITLE_CARD_INCOMES= 'Ingresos por mes';
+export const EMPTY_INCOMES_TEXT = 'No hay ingresos para este mes.';
+
 export const TITLE_CARD_LAST_TRANSACTIONS= 'Últimos movimientos';
 export const EMPTY_TRANSACTIONS_TEXT = 'No hay movimientos para este mes.';
 
