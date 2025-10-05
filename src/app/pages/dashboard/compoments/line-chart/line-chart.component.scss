@@ -1,0 +1,50 @@
+/* 🔹 Contenedor con scroll horizontal */
+.chart-container {
+  width: 100%;
+  overflow-x: auto; /* habilita scroll horizontal */
+  overflow-y: hidden; /* evita scroll vertical innecesario */
+  -webkit-overflow-scrolling: touch; /* scroll suave en iOS */
+  padding-bottom: 8px; /* espacio para que no corte el gráfico */
+}
+
+/* 🔹 Gráfico dentro del contenedor */
+.chart-container apx-chart {
+  min-width: 500px; /* asegura espacio para scroll en pantallas pequeñas */
+  max-width: 100%;
+  margin: 8px 0 16px;
+  display: block;
+}
+
+/* Laptops / tablets grandes (≤ 992px) */
+@media (max-width: 992px) {
+  .chart-container apx-chart {
+    min-width: 500px;
+  }
+}
+
+/* Tablets verticales (≤ 768px) */
+@media (max-width: 768px) {
+  .chart-container {
+    justify-content: center;
+  }
+  .chart-container apx-chart {
+    min-width: 420px;
+  }
+}
+
+/* Móviles estándar (≤ 480px) */
+@media (max-width: 480px) {
+  .chart-container {
+    justify-content: flex-start; /* mejora scroll en móvil */
+  }
+  .chart-container apx-chart {
+    min-width: 500px; /* coincide con tu config responsive */
+  }
+}
+
+/* iPhone SE y similares (≤ 376px) */
+@media (max-width: 376px) {
+  .chart-container apx-chart {
+    min-width: 600px; /* se mantiene el scroll fluido */
+  }
+}
