@@ -42,8 +42,8 @@
                 @for(transaction of filteredTransactions(); track transaction.id) {
                     <ion-item>
                         <ion-label>
-                            <h2>{{ transaction.category || 'Sin categoría' }}</h2>
-                            <p>{{ transaction.description || '—' }}</p>
+                            <h2>{{ transaction.category || '' }}</h2>
+                            <p>{{ transaction.description || '' }}</p>
                             <small>{{ transaction.date | date:'dd MMM yyyy' }}</small>
                         </ion-label>
                         <ion-text [color]="transaction.type === 'income' ? 'success' : 'danger'">
