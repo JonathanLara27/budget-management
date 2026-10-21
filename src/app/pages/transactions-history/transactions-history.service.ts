@@ -47,7 +47,7 @@ export class TransactionsHistoryService {
   public dateControl = this.fb.control<string>(this.today().toISOString(), [Validators.required]);
 
   public transactionsResource = rxResource<Transaction[], void>({
-    loader: () => {
+    stream: () => {
       const year = this.year();
       const month = this.month();
       return this.transactionsService.getTransactionsResource({ year, month });

@@ -2,6 +2,13 @@ import {
     ApexNonAxisChartSeries,
     ApexResponsive,
     ApexChart,
+    ApexAxisChartSeries,
+    ApexTooltip,
+    ApexXAxis,
+    ApexDataLabels,
+    ApexGrid,
+    ApexStroke,
+    ApexTitleSubtitle,
 } from 'ng-apexcharts';
 
 export type ChartOptions = {

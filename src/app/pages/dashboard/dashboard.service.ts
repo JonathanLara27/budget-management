@@ -35,7 +35,7 @@ export class DashboardService {
   public formDateControl = this.fb.control<string | null>(null, [Validators.required]);
 
   public transactionResource = rxResource<Transaction[], void>({
-    loader: () => {
+    stream: () => {
       const year = this.year();
       const month = this.month();
       return this.transactionsService.getTransactionsResource({ year, month });
